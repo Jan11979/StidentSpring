@@ -33,10 +33,25 @@ public class StudentController {
         return studService.getStudent(id);
     }
 
+    @GetMapping(path = "/kill/{id}")
+    public boolean deleteStudent(@PathVariable int id) {
+        return studService.killStudent(id);
+    }
+
     @GetMapping("/add/{id}/{name}")
     @ResponseBody
     public boolean addStudent(@PathVariable int id, @PathVariable String name) {
         return studService.addStudent(new Student( name, id ));
+    }
+
+    @PutMapping(path ="/add/")
+    public boolean addStudent(@RequestBody Student studi) {
+        return studService.addStudent(studi);
+    }
+
+    @PostMapping(path ="/add/")
+    public boolean addStudentPost(@RequestBody Student studi) {
+        return studService.addStudent(studi);
     }
 
 }

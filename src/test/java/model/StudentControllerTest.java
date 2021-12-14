@@ -33,17 +33,33 @@ class StudentControllerTest {
         assertTrue(restTemplate.getStudentList().toString().equals(sollResult) );
 
 
-        assertTrue(restTemplate.addStudent(2, null) );
+        assertFalse(restTemplate.addStudent(2, "Peter") );
     }
 
     @Test
-    public void test_it22() {
+    public void test_Mokki() {
         StudentServiceImpl studentService = mock(StudentServiceImpl.class);
 
-        when(studentService.getStudent(2)).thenReturn( (new Student("Some Name", 2)) );
+        when(studentService.getStudent(2)).thenReturn( (new Student("SomeName", 2)) );
 
-        assertNotNull(studentService.getStudent(2));
-        verify(studentService).getStudent(2);
+        when(studentService.addStudent(new Student("SomeName", 2))).thenReturn(true);
+        when(studentService.addStudent(new Student(null, 7))).thenReturn(true);
+
+        when(studentService.killStudent(2)).thenReturn(true);
+        when(studentService.killStudent(99)).thenReturn(false);
+
+        StudentController studCon = new StudentController();
+        studCon.setStudentServiceImpl(studentService);
+
+        assertTrue( studCon.getStudent(2).getName().equals("SomeName"));
+        assertTrue( studCon.getStudent(1) == null);
+        assertTrue( studCon.addStudent(2, "SomeName"));
+        assertTrue( studCon.addStudent(7, "NoName"));
+        assertTrue( studCon.deleteStudent(2 ));
+        assertFalse( studCon.deleteStudent(99 ));
+
+
+        //verify(studentService).getStudent(2);
     }
 
 

@@ -28,7 +28,7 @@ public class StudiVZ {
     public Student getStudent() {
         return new Student("Name");
     }*/
-
+/*
     @GetMapping(path = "/list/")
     public List<Student> getStudent() {
         return list;
@@ -71,12 +71,13 @@ public class StudiVZ {
         return list;
     }
     @PutMapping(path ="/putti") //Kein Parameter?
-
     public List<Student> getAddd(@RequestBody Student studi) {
     //    Student newS = new Student(name, 47);
         list.add(studi);
         return list;
     }
+    */
+
 }
 
 
